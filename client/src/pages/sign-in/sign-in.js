@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function SignInPage() {
     const [form, setForm] = useState({
-        identifier: '', // Puede ser username o email
+        identifier: '',
         password: '',
     });
     const [errorMessage, setErrorMessage] = useState('');
     const [showModal, setShowModal] = useState(false);
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -16,22 +19,25 @@ function SignInPage() {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validaciones básicas
         if (!form.identifier || !form.password) {
             setErrorMessage('Username/Email and password are required.');
             setShowModal(true);
             return;
         }
 
-        // Aquí podrías manejar el envío del formulario
         console.log('Form submitted:', form);
 
-        // Ejemplo de cómo podrías manejar una respuesta de error del servidor
-        // setErrorMessage('Invalid credentials.');
-        // setShowModal(true);
+        try {
+            const response = await axios.post('/api/auth/sign-in', form);
+            console.log(response.data);
+            navigate("/");
+        } catch (error) {
+            setErrorMessage('An error occurred. Please try again.');
+            setShowModal(true);
+        }
     };
 
     const handleCloseModal = () => {

@@ -1,7 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {useAuth} from "../../context/auth-context";
 
 function HomePage() {
+
+    const { isAuthenticated } = useAuth();
+
     return (
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content text-center">
@@ -14,10 +18,14 @@ function HomePage() {
                         ensuring that nothing falls through the cracks. Sign up now and take your team's productivity
                         to the next level.
                     </p>
-                    <div className="flex justify-center">
-                        <Link to="/sign-in" className="btn btn-primary mr-4">Sign In</Link>
-                        <Link to="/sign-up" className="btn btn-outline ">Sign Up</Link>
-                    </div>
+                    { !isAuthenticated && (
+                        <>
+                            <div className="flex justify-center">
+                                <Link to="/sign-in" className="btn btn-primary mr-4">Sign In</Link>
+                                <Link to="/sign-up" className="btn btn-outline ">Sign Up</Link>
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
         </div>

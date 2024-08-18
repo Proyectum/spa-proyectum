@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 function SignUpPage() {
     const [form, setForm] = useState({
@@ -19,10 +20,9 @@ function SignUpPage() {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validaciones
         if (form.username.length < 3 || form.username.length > 8) {
             setErrorMessage('Username must be between 3 and 8 characters.');
             setShowModal(true);
@@ -47,8 +47,15 @@ function SignUpPage() {
             return;
         }
 
-        // Aquí podrías manejar el envío del formulario
         console.log('Form submitted:', form);
+
+        try {
+            const response = await axios.post('/api/auth/sign-up', form);
+            console.log(response.data);
+        } catch (error) {
+            setErrorMessage('An error occurred. Please try again.');
+            setShowModal(true);
+        }
     };
 
     const handleCloseModal = () => {
