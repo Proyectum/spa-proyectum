@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Navbar from "./components/nav-bar/nav-bar";
 import HomePage from "./pages/home/home";
@@ -9,7 +9,7 @@ import {AuthProvider, useAuth} from "./context/auth-context";
 
 
 const AppRoutes = () => {
-    const {isAuthenticated, checkAuth} = useAuth();
+    const {checkAuth} = useAuth();
 
     useEffect(() => {
         checkAuth();

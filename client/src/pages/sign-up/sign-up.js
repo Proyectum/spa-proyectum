@@ -50,7 +50,7 @@ function SignUpPage() {
         }
 
         try {
-            const response = await axios.post('/api/auth/sign-up', form);
+            await axios.post('/api/auth/sign-up', form);
             navigate("/sign-in")
         } catch (error) {
             console.log(error);

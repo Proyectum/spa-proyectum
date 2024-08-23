@@ -10,7 +10,7 @@ function Navbar() {
     const buttonRef = useRef(null);
     const initials = "JD";
     const navigate = useNavigate();
-    const { isAuthenticated, signOut } = useAuth();
+    const { isAuthenticated } = useAuth();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);

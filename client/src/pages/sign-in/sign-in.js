@@ -29,7 +29,7 @@ function SignInPage() {
         }
 
         try {
-            const response = await axios.post('/api/auth/sign-in', form);
+            await axios.post('/api/auth/sign-in', form);
             navigate("/user/profile");
         } catch (error) {
             setErrorMessage('An error occurred. Please try again.');
