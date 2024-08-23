@@ -1,0 +1,10 @@
+logger:
+  level: info
+server:
+  port: 8000
+  cors:
+    origin: http://localhost:3000
+    credentials: true
+clients:
+  auth:
+    baseUrl: http://localhost:8081/v1/auth
