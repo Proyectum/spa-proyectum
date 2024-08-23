@@ -1,0 +1,6 @@
+server:
+  cors:
+    origin: http://localhost:8080
+clients:
+  auth:
+    baseUrl: http://ms-auth.default.svc.cluster.local:8080/v1/auth

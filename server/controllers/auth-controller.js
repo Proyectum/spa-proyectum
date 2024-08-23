@@ -1,12 +1,15 @@
 const axios = require('axios');
+const logger = require('../utils/logger')
+const configuration = require('../utils/config');
 
-const backendUrl = 'http://localhost:8081/v1/auth';
+const authBaseUrl = configuration.clients.auth.baseUrl;
 
 exports.signUp = async (req, res) => {
-    const { username, email, password } = req.body;
     try {
+        const { username, email, password } = req.body;
+        logger.info(`Signup user ${username} with email ${email}`);
 
-        const response = await axios.post(`${backendUrl}/sign-up`, { username, email, password });
+        const response = await axios.post(`${authBaseUrl}/sign-up`, { username, email, password });
 
         const { token } = response.data;
 
@@ -17,6 +20,7 @@ exports.signUp = async (req, res) => {
             maxAge: 86400000
         });
 
+        logger.info(`Signup successful`);
         res.status(200).json({ message: 'Sign in successful.' });
     } catch (error) {
         console.error('Sign In Error:', error);
@@ -30,10 +34,11 @@ exports.signOut = async (req, res) => {
 }
 
 exports.signIn = async (req, res) => {
-    const { identifier, password } = req.body;
     try {
+        const { identifier, password } = req.body;
+        logger.info(`Signup user ${identifier}`);
 
-        const response = await axios.post(`${backendUrl}/sign-in`, { username: identifier, password });
+        const response = await axios.post(`${authBaseUrl}/sign-in`, { username: identifier, password });
 
         const { token } = response.data;
 
@@ -44,6 +49,7 @@ exports.signIn = async (req, res) => {
             maxAge: 86400000
         });
 
+        logger.info(`Signup successful`);
         res.status(200).json({ message: 'Sign in successful.' });
     } catch (error) {
         console.error('Sign In Error:', error.message);
