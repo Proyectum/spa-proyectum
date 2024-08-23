@@ -31,8 +31,6 @@ function UserProfilePage() {
                     {userData ? (
                         <div>
                             <p><strong>Username:</strong> {userData.username}</p>
-                            <p><strong>Email:</strong> {userData.email}</p>
-                            {/* Muestra otros datos del usuario aquí */}
                         </div>
                     ) : (
                         <p>{errorMessage}</p>

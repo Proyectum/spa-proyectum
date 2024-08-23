@@ -28,12 +28,9 @@ function SignInPage() {
             return;
         }
 
-        console.log('Form submitted:', form);
-
         try {
             const response = await axios.post('/api/auth/sign-in', form);
-            console.log(response.data);
-            navigate("/");
+            navigate("/user/profile");
         } catch (error) {
             setErrorMessage('An error occurred. Please try again.');
             setShowModal(true);

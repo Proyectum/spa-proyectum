@@ -12,9 +12,9 @@ function HomePage() {
                 <div className="max-w-md">
                     <h1 className="text-5xl font-bold">Welcome to Proyectum</h1>
                     <p className="py-6">
-                        Welcome to MyWebsite, the ultimate tool for managing your projects efficiently using the Kanban method.
+                        Welcome to Proyectum, the ultimate tool for managing your projects efficiently using the Kanban method.
                         Organize your tasks, assign responsibilities, and track your team's progress in real-time.
-                        With an intuitive and customizable interface, MyWebsite lets you visualize every stage of your projects,
+                        With an intuitive and customizable interface, Proyectum lets you visualize every stage of your projects,
                         ensuring that nothing falls through the cracks. Sign up now and take your team's productivity
                         to the next level.
                     </p>

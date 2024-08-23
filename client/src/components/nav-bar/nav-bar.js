@@ -72,6 +72,11 @@ function Navbar() {
                             <ul className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 absolute right-0"
                                 ref={menuRef}>
                                 <li>
+                                    <Link to="/user/profile" onClick={closeMenu}>
+                                        Profile
+                                    </Link>
+                                </li>
+                                <li>
                                     <Link to="/user/profile/settings" onClick={closeMenu}>
                                         Settings
                                     </Link>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import {useNavigate} from "react-router-dom";
 
 function SignUpPage() {
     const [form, setForm] = useState({
@@ -11,6 +12,7 @@ function SignUpPage() {
     });
     const [errorMessage, setErrorMessage] = useState('');
     const [showModal, setShowModal] = useState(false);
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -47,13 +49,12 @@ function SignUpPage() {
             return;
         }
 
-        console.log('Form submitted:', form);
-
         try {
             const response = await axios.post('/api/auth/sign-up', form);
-            console.log(response.data);
+            navigate("/sign-in")
         } catch (error) {
-            setErrorMessage('An error occurred. Please try again.');
+            console.log(error);
+            setErrorMessage(error.response.data.message);
             setShowModal(true);
         }
     };
