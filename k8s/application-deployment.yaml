@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-proyectum
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: front-proyectum
+  template:
+    metadata:
+      labels:
+        app: front-proyectum
+    spec:
+      containers:
+        - name: front-proyectum
+          image: ghcr.io/proyectum/front-proyectum:1.0.1
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              memory: 128Mi
+              cpu: 250m
+            limits:
+              memory: 256Mi
+              cpu: 500m
+          readinessProbe:
+            httpGet:
+              path: /health/readiness
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health/liveness
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          env:
+            - name: ENV
+              value: dev
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: front-proyectum
+                  key: jwt-secret
+      imagePullSecrets:
+        - name: ghcr-secret

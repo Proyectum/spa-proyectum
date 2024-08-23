@@ -3,6 +3,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
+const healthRoutes = require('./routes/health');
 const path = require('path');
 const logger = require('./utils/logger')
 const configuration = require('./utils/config')
@@ -23,6 +24,7 @@ app.use(cors({
 
 app.use(express.json());
 app.use(cookieParser());
+app.use('/health', healthRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 
