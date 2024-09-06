@@ -8,3 +8,5 @@ server:
 clients:
   auth:
     baseUrl: http://localhost:8080/api/v1/auth
+  profile:
+    baseUrl: http://localhost:8080/api/v1/users

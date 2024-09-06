@@ -8,9 +8,8 @@ function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const menuRef = useRef(null);
     const buttonRef = useRef(null);
-    const initials = "JD";
     const navigate = useNavigate();
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, signOut, user } = useAuth();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -36,10 +35,10 @@ function Navbar() {
 
     const handleSignOut = async () => {
         try {
-            await axios.post('/api/auth/sign-out', {}, { withCredentials: true });
-            navigate('/');
+            signOut();
         } catch (error) {
             console.error('Sign out error:', error);
+            navigate('/');
         }
     };
 
@@ -65,7 +64,7 @@ function Navbar() {
                     <>
                     <div className="flex-none relative">
                         <button className="btn btn-circle bg-primary text-white" ref={buttonRef} onClick={toggleMenu}>
-                            {initials}
+                            {user.initials}
                         </button>
 
                         {isMenuOpen && (

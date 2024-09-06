@@ -1,12 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const authRoutes = require('./routes/auth');
-const userRoutes = require('./routes/user');
-const healthRoutes = require('./routes/health');
+const authRoutes = require('./src/routes/auth');
+const userRoutes = require('./src/routes/user');
+const healthRoutes = require('./src/routes/health');
 const path = require('path');
-const logger = require('./utils/logger')
-const configuration = require('./utils/config')
+const logger = require('./src/utils/logger')
+const configuration = require('./src/utils/config')
+const {newStorageMiddleware} = require("./src/utils/storage");
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(cors({
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(newStorageMiddleware)
 app.use('/health', healthRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);

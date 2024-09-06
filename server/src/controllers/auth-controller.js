@@ -1,17 +1,12 @@
 const axios = require('axios');
 const logger = require('../utils/logger')
-const configuration = require('../utils/config');
-
-const authBaseUrl = configuration.clients.auth.baseUrl;
+const {signIn, signUp} = require("../services/auth");
 
 exports.signUp = async (req, res) => {
     try {
         const { username, email, password } = req.body;
-        logger.info(`Signup user ${username} with email ${email}`);
 
-        const response = await axios.post(`${authBaseUrl}/sign-up`, { username, email, password });
-
-        const { token } = response.data;
+        const token = await signUp(username, email, password);
 
         res.cookie('token', token, {
             httpOnly: true,
@@ -20,11 +15,10 @@ exports.signUp = async (req, res) => {
             maxAge: 86400000
         });
 
-        logger.info(`Signup successful`);
-        res.status(200).json({ message: 'Sign in successful.' });
+        res.status(200).json({ message: 'Sign up successful.' });
     } catch (error) {
-        console.error('Sign In Error:', error);
-        res.status(error.response.status).json({ message: error.response.data.message });
+        console.error('Sign Up Error:', error);
+        res.status(500).json({ message: error.message });
     }
 };
 
@@ -36,11 +30,8 @@ exports.signOut = async (req, res) => {
 exports.signIn = async (req, res) => {
     try {
         const { identifier, password } = req.body;
-        logger.info(`Signup user ${identifier}`);
 
-        const response = await axios.post(`${authBaseUrl}/sign-in`, { username: identifier, password });
-
-        const { token } = response.data;
+        const token = await signIn(identifier, password);
 
         res.cookie('token', token, {
             httpOnly: true,
@@ -49,7 +40,6 @@ exports.signIn = async (req, res) => {
             maxAge: 86400000
         });
 
-        logger.info(`Signup successful`);
         res.status(200).json({ message: 'Sign in successful.' });
     } catch (error) {
         console.error('Sign In Error:', error.message);

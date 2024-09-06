@@ -25,4 +25,4 @@ COPY --from=builder /app/build /app/statics
 
 EXPOSE 8000
 
-CMD ["node", "server.js"]
+CMD ["node", "application.js"]
