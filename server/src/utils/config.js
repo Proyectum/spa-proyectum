@@ -13,10 +13,10 @@ function loadYAMLConfig(filePath) {
     }
 }
 
-const defaultConfig = loadYAMLConfig('../configs/configmap.yml');
+const defaultConfig = loadYAMLConfig('../../configs/configmap.yml');
 let profileConfig = {}
 if (process.env.ENV !== undefined) {
-    profileConfig = loadYAMLConfig(`../configs/configmap-${process.env.ENV}.yml`);
+    profileConfig = loadYAMLConfig(`../../configs/configmap-${process.env.ENV}.yml`);
 }
 
 const configuration = merge({}, defaultConfig, profileConfig);

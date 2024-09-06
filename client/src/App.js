@@ -16,17 +16,17 @@ const AppRoutes = () => {
     }, [checkAuth]);
 
     return (
-        <div className="flex flex-col min-h-screen">
-            <Navbar/>
-            <main className="flex-grow">
-                <Routes>
-                    <Route path="/" element={<HomePage/>}/>
-                    <Route path="/sign-in" element={<SignInPage/>}/>
-                    <Route path="/sign-up" element={<SignUpPage/>}/>
-                    <Route path="/user/profile" element={<UserProfilePage/>}/>
-                </Routes>
-            </main>
-        </div>
+            <div className="flex flex-col min-h-screen">
+                <Navbar/>
+                <main className="flex-grow">
+                        <Routes>
+                            <Route path="/" element={<HomePage/>}/>
+                            <Route path="/sign-in" element={<SignInPage/>}/>
+                            <Route path="/sign-up" element={<SignUpPage/>}/>
+                            <Route path="/user/profile" element={<UserProfilePage/>}/>
+                        </Routes>
+                </main>
+            </div>
     );
 }
 

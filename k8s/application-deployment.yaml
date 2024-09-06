@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: front-proyectum
-          image: ghcr.io/proyectum/front-proyectum:1.0.1
+          image: ghcr.io/proyectum/front-proyectum:1.0.2
           ports:
             - containerPort: 8000
           resources:
@@ -39,10 +39,5 @@ spec:
           env:
             - name: ENV
               value: dev
-            - name: JWT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: front-proyectum
-                  key: jwt-secret
       imagePullSecrets:
         - name: ghcr-secret

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import {useAuth} from "../../context/auth-context";
 
 function SignInPage() {
     const [form, setForm] = useState({
@@ -10,6 +11,7 @@ function SignInPage() {
     const [errorMessage, setErrorMessage] = useState('');
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
+    const { checkAuth } = useAuth();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -30,6 +32,7 @@ function SignInPage() {
 
         try {
             await axios.post('/api/auth/sign-in', form);
+            checkAuth();
             navigate("/user/profile");
         } catch (error) {
             setErrorMessage('An error occurred. Please try again.');

@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -6,29 +6,41 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [user, setUser] = useState({});
     const navigate = useNavigate();
 
-    const checkAuth = async () => {
+    const checkAuth = useCallback(async () => {
         try {
-            await axios.get('/api/users/profile', { withCredentials: true });
+            const response = await axios.get('/api/users/profile', { withCredentials: true });
             setIsAuthenticated(true);
+            setUser(response.data);
         } catch {
             setIsAuthenticated(false);
+            setUser({})
         }
-    };
+    }, []);
 
-    const signOut = async () => {
+    const signOut = useCallback(async () => {
         try {
             await axios.post('/api/auth/sign-out', {}, { withCredentials: true });
-            setIsAuthenticated(false);
-            navigate('/');
         } catch (error) {
             console.error('Sign out error:', error);
         }
-    };
+        setIsAuthenticated(false);
+        setUser({})
+        navigate('/');
+    }, [navigate]);
+
+    const contextValue = React.useMemo(() => ({
+        isAuthenticated,
+        user,
+        setIsAuthenticated,
+        signOut,
+        checkAuth
+    }), [isAuthenticated, user, signOut, checkAuth]);
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, signOut, checkAuth }}>
+        <AuthContext.Provider value={contextValue}>
             {children}
         </AuthContext.Provider>
     );
