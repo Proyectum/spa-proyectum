@@ -3,4 +3,6 @@ server:
     origin: http://localhost:8080
 clients:
   auth:
-    baseUrl: http://ms-auth.default.svc.cluster.local:8080/api/v1/auth
+    baseUrl: http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/v1/auth
+  profile:
+    baseUrl: http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/v1/users
